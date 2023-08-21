@@ -1,0 +1,36 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: slackbot
+
+spec:
+  # schedule: "0 * * * *"
+  schedule: "* * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: slack-time-container
+            image: longpd02/slack_bot
+            imagePullPolicy: IfNotPresent
+            env:
+            - name: SLACK_WEBHOOK
+              valueFrom:
+                secretKeyRef:
+                  name: slackbot
+                  key: SLACK_WEBHOOK
+            - name: SLACK_CHANNEL
+              valueFrom:
+                secretKeyRef:
+                  name: slackbot
+                  key: SLACK_CHANNEL
+            - name: MY_NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: MY_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
