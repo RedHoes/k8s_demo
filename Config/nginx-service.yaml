@@ -11,7 +11,7 @@ spec:
   ports:
   - name: http
     protocol: TCP
-    port: 80  # service port
-    targetPort: 8080 # Pod port -> listen for running application
-    # nodePort: 32538 # Node port -> route traffic to pods
+    port: 80 
+    targetPort: 8080 
+    nodePort: 32538
     
