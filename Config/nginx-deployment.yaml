@@ -41,9 +41,6 @@ spec:
             name: nginx-configmap
         - configMapRef:
             name: nginx-conf
-        # env:
-        #   - name: COMPANY
-        #     value: NFQ
         ports:
         - containerPort: 80
       - name: sidecar
